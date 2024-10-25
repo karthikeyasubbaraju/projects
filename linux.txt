@@ -1,0 +1,271 @@
+linux - 1991 invented.
+Latest kernal model is 6.9;
+
+
+1) man - man<command> it gives description of the command.
+2) tldr<command> - also does the same thing but it gives quick review of command than man.
+3) ls - lists all the files or folders in the directory.
+    ls -l : lists files one per line
+    ls -a : lists all files including hiden files; the files that start with a "."infront is the hidden file.
+    ls -al / ls -la : long format give every detail of it 
+    i.e : the file permissions (and if your system supports ACLs, you get an ACL flag as well)
+          the number of links to that file
+          the owner of the file
+          the group of the file
+          the file size in bytes
+          the file modified datetime
+          the file name
+4) cd - cd<command> used to change the working directory.
+    cd .. => gets you to the parent directory.
+    cd . => remains same. 
+    .. -> represents parent directory.
+    . -> represents current directory.
+5) pwd => prints the current folder path.
+6) mkdir => mkdir <command> -> makes directory in a directory.
+   u can create multiple directories in a single command
+   eg: mkdir dogs cars
+   mkdir -p fruits/apples -> here if fruits directory is created then it will create apples directory in it , or else it will create both the directories at the same time but apples being sub directory of fruits.
+7) same as mkdir but rmdir it removes a directory/folder.
+  to delete folders with files in them , we will use the command "rm" whih deletes files and folders using the -rf options.   rm -rf fruits cars
+    
+    here we cannot remove a directory using "rm" but we can delete a folder using only "rm". but we can delete any thinh using "rm -rf <> ".
+
+
+  otherwise we cannot delete a parent directory which has folders or files indside it. only possible through 
+  rm -rf <directory>
+8) mv -> mv <dir> <new_dir> it moves <dir> to <new_dir>.
+  we can move multiple files in to other files as 
+  mv <dir1> <dir2> ... <dirn> <new_dir>.
+  all the <diri> i from 1 to n are moved in to new_dir.
+
+9) cp -> we can copy a file using cp <file1> <file2>.
+to copy folders we need cp -r <folder> <folder2>
+
+10) open <filename> => opens a file name
+    open <directory name> => opens directory/folder present in the current directory.
+    open . => opens current directory.
+    open .. => opens parent directory.
+
+11) touch => create an empty file .
+touch <filename> =>creates an empty file with that name filename.
+if it already exits opens the file in write mode and the time stamp of the file is updated.
+
+12) find => 
+to find the files under the current tree that have last name as .txt or .js etc and print the relative path to each file matching is : 
+  ==> find . -name '*.txt' or find . -name '*.js' 
+to find the directories under the current tree matching the name "src" or whatever the name is , then we use :
+  ==> find . -type d -name src
+to find files 
+  ==> find . -type f -name filename
+to find the links 
+  ==> find . -type l -name linkname
+if we use -iname instead of -name then it will be a case - insensitive search.
+
+we can even search multiple folders for the file. 
+eg : find folder1 folder 2 -name filename.txt
+
+Find  directories  under  the  current  tree  matching  the
+name "node_modules" or 'public':
+You can also exclude a path, using  -not -path :you  can  search  files  that  have  more  than  100
+characters (bytes) in them:
+find . -type f -size +100c 
+
+Search files bigger than 100KB but smaller than 1MB:
+find . -type f -size +100k -size -1M 
+
+Search files edited more than 3 days ago
+find . -type f -mtime +3 
+
+Search files edited in the last 24 hours
+find . -type f -mtime -1 
+
+You  can  delete  all  the  files  matching  a  search  by
+adding the   -delete  option. This deletes all the files
+edited in the last 24 hours:
+find . -type f -mtime -1 -delete 
+
+find . -type d -name node_modules -or -name public 
+
+find . -type d -name '*.md' -not -path 'node_modules
+
+13) ln -=> used to create links.
+hard links => u cant connect to directories and cant link to external fireSystems;
+here if u update anything in any file it is updates in both the files.If you delete the original file, the link will still contain
+the  original  file  content,  as  that's  not  removed  until
+there is one hard link pointing to it.
+Soft links :
+Soft links are different. They are more powerful as you
+can  link  to  other  filesystems  and  to  directories,  but
+when the original is removed, the link will be broken.
+
+
+
+
+
+
+14) gzip : used to compress the file to .gz files.
+when used like gzip <filename> => here filename.gz is created but original file is deleted.
+but gzip -c filename > filename.gz => here the compressed file is shifted to filename.gz leaving the original intact.
+
+can use either gzip -c f1 > f2.gz(or)gzip -k f1 
+
+c varies from 1 to 9 , default is 6. 9 is best&slow , 1 is fast but worst.
+
+gzip f1 f2 => compressing multiple files by listing them
+
+gzip -r dir1 -> compressing all files in a directory recursively.
+
+gzip -d filename.gz => decompress a file.
+
+gunzip is same as gzip but -d is always enabled.
+
+15) tar => create an archieve and group multiple files into single file.
+This  command  creates  an  archive  named archive.tar  with the content of  file1  and  file2 :
+tar -cf archive.tar file1 file2 
+The  c  option stands for create. The  f  option is
+used to write to file the archive
+
+To extract files from an archive in the current folder,
+use:
+tar -xf archive.tar 
+the  x  option stands for extract
+and to extract them to a specific directory, use:
+tar -xf archive.tar -C directory
+
+tar -czf archive.tar.gz file1 file2 
+This is just like creating a tar archive, and then running
+ gzip  on it.
+To unarchive a gzipped archive, you can use  gunzip ,
+or  gzip -d , and then unarchive it, but   tar -xf  will
+recognize it's a gzipped archive, and do it for you:
+tar -xf archive.tar.gz 
+
+16)alias => alias ll = 'ls -al';
+we can use the large comand like this.
+
+17) cat => used to print content of a file.
+it can print contents of multiple files 
+
+cat <filename> or cat f1 f2
+
+we can create a newfile or redirect the ouput to a file by using > 
+ cat f1 f2 > f3 => if f3 has some content in it it will be rewritten by f1 and f2 's content.
+
+but if we use cat f1 f2 >> f3 then => it concatinates the content of f1 and f2 at the end of f3.
+
+When watching source code files it's great to see the
+line numbers, and you can have  cat  print them using
+the  -n  option: cat -n file1 
+You can only add a number to non-blank lines using  -b , or you can also remove all the multiple empty lines
+using  -s .
+cat    is  often  used  in  combination  with  the  pipe
+operator  |  to feed a file content as input to another
+command:  cat file1 | anothercommand .
+
+17) less :  It shows you the  content  stored  inside  a  file,  in  a  nice  and interactive UI.
+Usage:  less <filename> 
+
+18)tail : tail -f filename =>opens the file 
+tail -n 10 f1 => prints the last 10 lines in f1.
+tail -n +10 f1 => prints the first 10 lines in f1.
+
+wc -> gives info via pipes.
+
+19) grep => there is a lot to learn , 
+it is used to search in files and find the occureance of other commands.
+
+grep command1 file => gives the line of execution of that command in the file
+
+grep -n command1 file => give in which line the command is present and the full line of command.
+
+use -v in it to invert a result .
+
+20) sort => to sort the contents of a file 
+default : case sensitive. sort file1
+in the reverse order : sort -r file1
+to sort in case insensitive use : --ignore-case 
+to sort in numeric order : -n
+if file contains duplicate lines use : sort -u file or sort file | uniq -u to remove it.
+to display only duplicate lines use : sort file | uniq -d.
+You can count the occurrences of each line with the  - c  option.
+
+21) diff => diff blw 2 files are printed.
+diff f1 f2 
+use -y to compare the files line by line.
+-u is used by git to see the diff blw files.
+comparing directories also is the same way but we use -r.
+
+22) echo => it prints the output the argument passed to it. echo "hi" => it prints "hi"
+echo "hi" >> output.txt => hi is appended to output.txt
+
+23) chown => chown command is used to change the owner of a file to another file. //need to learn about this.
+
+24) chmod => you can change the permissions of a file using this command. The first letter indicates the type of file:
+ -  means it's a normal file
+ d  means it's a directory
+ l  means it's a link.
+You type  chmod  followed by a space, and a letter:
+ a  stands for all
+ u  stands for user
+ g  stands for group
+ o  stands for others
+ Then you type either  +  or  -  to add a permission, or
+to remove it. Then you enter one or more permissions
+symbols ( r ,  w ,  x ).
+chmod a+r filename #everyone can now read 
+chmod a+rw filename #everyone can now read and write
+chmod o-rwx filename #others (not the owner,but rest cannot read,write,and execute).
+
+This gives us 4 combinations:
+ 0  no permissions
+ 1  can execute
+ 2  can write
+ 3  can write, execute
+ 4  can read
+ 5  can read, execute
+ 6  can read, write
+ 7  can read, write and execute
+
+ umask => When  you  create  a  file,  you  don't  have  to  decide permissions up front. Permissions have defaults.Those defaults can be controlled and modified using the  umask  command.
+ the value in umask is octal value that represent the permissions.
+
+ Here's a list that gives a meaning to the number:
+ 0  read, write, execute
+ 1  read and write
+ 2  read and execute
+ 3  read only
+ 4  write and execute
+ 5  write only
+ 6  execute only
+ 7  no permissions
+
+unmask -S => u - user , g - grp , o - others. 
+
+ps => inspect all the processes running in the computer
+The  columns  returned  by   ps    represent  some  key
+information.
+The first information is   PID , the process ID. 
+then Terminal Id as TTY, then STAT tells us the state of the process.
+I - idle process , R - runnable process , S - process that's sleeping for less than about 20 secs and T is a stopped process ,U - uniterruptible wait, Z - dead process.
+
+Top => A quick guide to the   top  command, used to list the processes running in real time.The top command is used to display dynamic real time  information  about  running  processes  in  the system.
+There's  a  lot  of  information  being  given  to  us:  the number  of  processes,  how  many  are  running  or
+sleeping, the system load, the CPU usage, and a lot more.
+
+kill => kill <PID> its used to kill a process mainly.
+flags are used here like =>
+HUP => hang up -1
+INT => interrupt -2 
+TERM => terminate - 15
+CONT (18)=> continue are flags send to process but
+KILL(9) , (15)STOP flags are not sent to the process but to the o.s(kernal). 
+
+
+du => calculates the size of the whole directory.
+displayed using Megabytes as du -m and Gigabytes as du -g.
+
+df => used to get disk usage information.
+
+which => used to know where a command is located in shell path. command returns a path.
+
+vim => vi is alias for vim.
